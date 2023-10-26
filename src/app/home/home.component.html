@@ -1,0 +1,49 @@
+<app-navbar (changePage)="changePages($event)"></app-navbar>
+<section>
+  <div class="container">
+    <div class="p-2">
+      <h2 class="text-center"><b>Realice una búsqueda</b></h2>
+      <div class="row">
+        <div class="col-8 offset-md-1">
+          <input class="form-control mt-2" type="text" [placeholder]="placeholder" aria-label="" [(ngModel)]="search">
+        </div>
+        <div class="text-center col-2">
+          <button class="buscar mb-3" (click)="changeInput()">Buscar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-3" *ngIf="spinner">
+      <h1>{{currentPage}}</h1>
+      <img src="../../assets/imgs/rick-and-morty.gif" alt="imgLoading" width="700">
+    </div>
+
+
+    <div class="text-center pb-5 mb-3" *ngIf="listApi">
+      <button class="btn btn-secondary float-start" *ngIf="listApi.info && listApi.info.prev"
+        (click)="validatePage(listApi.info.prev)">Anterior</button>
+      <button class="btn btn-primary float-end" *ngIf="listApi.info && listApi.info.next"
+        (click)="validatePage(listApi.info.next)">Siguiente</button>
+    </div>
+  </div>
+
+</section>
+
+
+<app-characters *ngIf="validateComponent == 'character'" [listCharacter]="listApi" [spinner]="spinner" (changePage)="validatePage($event)">
+</app-characters>
+<app-location *ngIf="validateComponent == 'location'" [listCharacter]="listApi" (changePage)="validatePage($event)">
+</app-location>
+<app-episodes *ngIf="validateComponent == 'episode'" [listCharacter]="listApi" (changePage)="validatePage($event)">
+</app-episodes>
+<app-error [image]="imgError" *ngIf="imgError != ''"></app-error>
+
+
+<div class="container">
+  <div class="text-center pb-5" *ngIf="listApi">
+    <button class="btn btn-secondary float-start" *ngIf="listApi.info && listApi.info.prev"
+      (click)="validatePage(listApi.info.prev)">Anterior</button>
+    <button class="btn btn-primary float-end" *ngIf="listApi.info && listApi.info.next"
+      (click)="validatePage(listApi.info.next)">Siguiente</button>
+  </div>
+</div>

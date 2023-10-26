@@ -1,0 +1,48 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-3 text-center" *ngFor="let char of listCharacter.results">
+      <div class="card text-center mb-1">
+        <div class="card-details">
+          <p class="text-title">{{char.name}}</p>
+          <p class="text-body">{{char.episode}}</p>
+          <p class="text-body">Emisión: {{char.air_date | date:'shortDate'}}</p>
+        </div>
+        <button class="card-button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="selectedEpisode(char.name)">Ver
+          más</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">{{selected.name}}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Fecha de emisión: {{selected.air_date}}</li>
+          <li>Episodio: {{selected.episode}}</li>
+          <li>Creación: {{selected.created | date:'shortDate'}}</li>
+        </ul>
+        <br>
+        <h3 style="color: rgb(85, 177, 97);" class="text-center"><b>Personajes del episodio</b></h3>
+        <div class="row">
+          <div class="col-3 mb-3" *ngFor="let item of chars">
+            <p class="text-center"><b>{{item.nameChar}}</b></p>
+            <img class="imgCard" [src]="item.imageChar">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
